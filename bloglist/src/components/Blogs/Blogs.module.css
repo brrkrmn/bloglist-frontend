@@ -1,0 +1,13 @@
+.blogsWrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.blog {
+    width: 200px;
+    background-color: rgb(208, 213, 213);
+    border-radius: 8px;
+    text-align: center;
+}

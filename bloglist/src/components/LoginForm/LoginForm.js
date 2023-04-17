@@ -1,7 +1,8 @@
 import React from 'react';
 import loginService from '../../services/login'
+import blogService from '../../services/blogs'
 
-function LoginForm({ setUser }) {
+function LoginForm({ setUser, setMessage }) {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   
@@ -18,11 +19,16 @@ function LoginForm({ setUser }) {
     try {
       const user = await loginService.login({ username, password })
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
+      blogService.setToken(user.token)
+
       setUser(user)
       setUsername('')
       setPassword('')
     } catch (expection) {
-      alert('Wrong credentials')
+      setMessage({
+        type: 'fail',
+        message: 'Invalid Username or Password'
+      })
     }
   }
 
