@@ -1,2 +1,2 @@
-export * from './Togglable';
-export { default } from './Togglable';
+export * from './Togglable'
+export { default } from './Togglable'
