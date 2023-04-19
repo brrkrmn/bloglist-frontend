@@ -1,11 +1,11 @@
 import React from 'react';
 import blogService from '../../services/blogs'
 import styles from './BlogForm.module.css'
+import Togglable from '../Togglable/Togglable';
 
-const BlogForm = ({ setBlogs, blogs, setMessage }) => {
+const BlogForm = ({ user, onCreate }) => {
   const [title, setTitle] = React.useState('')
   const [author, setAuthor] = React.useState('')
-  const [likes, setLikes] = React.useState('')
   const [url, setUrl] = React.useState('')
 
   const changeTitle = (event) => {
@@ -13,9 +13,6 @@ const BlogForm = ({ setBlogs, blogs, setMessage }) => {
   }
   const changeAuthor = (event) => {
     setAuthor(event.target.value)
-  }
-  const changeLikes = (event) => {
-    setLikes(event.target.value)
   }
   const changeUrl = (event) => {
     setUrl(event.target.value)
@@ -26,25 +23,19 @@ const BlogForm = ({ setBlogs, blogs, setMessage }) => {
     const newBlog = {
       title: title,
       author: author,
-      likes: likes,
-      url: url
+      url: url,
     }
+    
     const response = await blogService.create(newBlog)
-    const newBlogs = [...blogs, response]
-    setBlogs(newBlogs)
+    onCreate(response)
 
     setTitle('')
     setAuthor('')
-    setLikes('')
     setUrl('')
-    setMessage({
-      type: 'success',
-      message: `A new blog '${title}' by '${author}' is added`
-    })
   }
 
   return (
-    <>
+    <Togglable buttonLabel='Add Blog' cancelButtonLabel='Cancel'>
       <form onSubmit={handleAddBlog} className={styles.formWrapper}>
         <div>
           Title:
@@ -65,15 +56,6 @@ const BlogForm = ({ setBlogs, blogs, setMessage }) => {
           />
         </div>
         <div>
-          Likes:
-          <input 
-            type="number"
-            value={likes}
-            name="Likes"
-            onChange={changeLikes}
-          />
-        </div>
-        <div>
           URL:
           <input 
             type="text"
@@ -84,7 +66,7 @@ const BlogForm = ({ setBlogs, blogs, setMessage }) => {
         </div>
         <button type='submit'>Add</button>
     </form>
-    </>
+    </Togglable>
   )
 }
 
