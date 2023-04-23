@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import blogService from '../../services/blogs'
 import styles from './BlogForm.module.css'
-import Togglable from '../Togglable/Togglable';
+import Togglable from '../Togglable/Togglable'
 
-const BlogForm = ({ user, onCreate }) => {
+const BlogForm = ({ onCreate }) => {
   const [title, setTitle] = React.useState('')
   const [author, setAuthor] = React.useState('')
   const [url, setUrl] = React.useState('')
@@ -25,10 +25,9 @@ const BlogForm = ({ user, onCreate }) => {
       author: author,
       url: url,
     }
-    
+
     const response = await blogService.create(newBlog)
     onCreate(response)
-
     setTitle('')
     setAuthor('')
     setUrl('')
@@ -39,29 +38,32 @@ const BlogForm = ({ user, onCreate }) => {
       <form onSubmit={handleAddBlog} className={styles.formWrapper}>
         <div>
           Title:
-          <input 
+          <input
             type="text"
             value={title}
             name="Title"
             onChange={changeTitle}
+            placeholder='title'
           />
         </div>
         <div>
-          Author: 
-          <input 
+          Author:
+          <input
             type="text"
             value={author}
             name="Author"
             onChange={changeAuthor}
+            placeholder='author'
           />
         </div>
         <div>
           URL:
-          <input 
+          <input
             type="text"
             value={url}
             name="Url"
             onChange={changeUrl}
+            placeholder='url'
           />
         </div>
         <button type='submit'>Add</button>
@@ -70,4 +72,4 @@ const BlogForm = ({ user, onCreate }) => {
   )
 }
 
-export default BlogForm;
+export default BlogForm

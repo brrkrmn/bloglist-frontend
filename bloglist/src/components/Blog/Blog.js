@@ -1,6 +1,6 @@
-import React from 'react';
-import Togglable from '../Togglable/Togglable';
-import blogService from '../../services/blogs';
+import React from 'react'
+import Togglable from '../Togglable/Togglable'
+import blogService from '../../services/blogs'
 
 const Blog = ({ blog, user, onLike, onDelete }) => {
   const handleLike = async () => {
@@ -25,7 +25,9 @@ const Blog = ({ blog, user, onLike, onDelete }) => {
       <h3>{blog.title}</h3>
       <Togglable buttonLabel='View' cancelButtonLabel='Hide'>
           <p>Author: {blog.author}</p>
-          <p>likes: {blog.likes} <button onClick={handleLike} >Like</button></p>
+          <p>likes: {blog.likes}
+            <button onClick={handleLike}>Like</button>
+          </p>
           <p>url: {blog.url}</p>
           <p>{user.username}</p>
           { blog.user.username === user.username && <button onClick={handleRemove}>Delete Blog</button> }
@@ -34,4 +36,4 @@ const Blog = ({ blog, user, onLike, onDelete }) => {
   )
 }
 
-export default Blog;
+export default Blog
