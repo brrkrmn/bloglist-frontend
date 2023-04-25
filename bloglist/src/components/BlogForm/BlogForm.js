@@ -39,6 +39,7 @@ const BlogForm = ({ onCreate }) => {
         <div>
           Title:
           <input
+            id='title'
             type="text"
             value={title}
             name="Title"
@@ -49,6 +50,7 @@ const BlogForm = ({ onCreate }) => {
         <div>
           Author:
           <input
+            id='author'
             type="text"
             value={author}
             name="Author"
@@ -59,6 +61,7 @@ const BlogForm = ({ onCreate }) => {
         <div>
           URL:
           <input
+            id='url'
             type="text"
             value={url}
             name="Url"
@@ -66,7 +69,7 @@ const BlogForm = ({ onCreate }) => {
             placeholder='url'
           />
         </div>
-        <button type='submit'>Add</button>
+        <button id='blogButton' type='submit'>Add</button>
     </form>
     </Togglable>
   )

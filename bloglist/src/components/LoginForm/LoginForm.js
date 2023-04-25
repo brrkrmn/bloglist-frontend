@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 import loginService from '../../services/login'
 import blogService from '../../services/blogs'
 
 function LoginForm({ setUser, setMessage }) {
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
-  
+
   const changeUsername = (event) => {
     setUsername(event.target.value)
   }
@@ -37,8 +37,9 @@ function LoginForm({ setUser, setMessage }) {
       <h1>Login</h1>
       <form onSubmit={handleSubmit} >
         <div>
-          Username: 
-          <input 
+          Username:
+          <input
+            id='username'
             type="text"
             value={username}
             name="Username"
@@ -46,19 +47,20 @@ function LoginForm({ setUser, setMessage }) {
           />
         </div>
         <div>
-          Password: 
-          <input 
+          Password:
+          <input
+            id='password'
             type="password"
             value={password}
             name="Password"
             onChange={changePassword}
           />
         </div>
-        <button type="submit" >Login</button>
+        <button id='loginButton' type="submit" >Login</button>
       </form>
     </div>
 
   )
 }
 
-export default LoginForm;
+export default LoginForm

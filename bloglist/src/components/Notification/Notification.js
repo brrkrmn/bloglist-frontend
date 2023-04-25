@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styles from './Notification.module.css'
 
 const Notification = ({ notification }) => {
@@ -22,4 +22,4 @@ const Notification = ({ notification }) => {
   }
 }
 
-export default Notification;
+export default Notification

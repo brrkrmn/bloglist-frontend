@@ -21,18 +21,18 @@ const Blog = ({ blog, user, onLike, onDelete }) => {
   }
 
   return (
-    <>
+    <div className='blog'>
       <h3>{blog.title}</h3>
       <Togglable buttonLabel='View' cancelButtonLabel='Hide'>
           <p>Author: {blog.author}</p>
           <p>likes: {blog.likes}
-            <button onClick={handleLike}>Like</button>
+            <button id='like' onClick={handleLike}>Like</button>
           </p>
           <p>url: {blog.url}</p>
           <p>{user.username}</p>
           { blog.user.username === user.username && <button onClick={handleRemove}>Delete Blog</button> }
       </Togglable>
-    </>
+    </div>
   )
 }
 

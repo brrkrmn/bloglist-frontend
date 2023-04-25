@@ -21,7 +21,7 @@ const App = () => {
   React.useEffect(() => {
     getAllBlogs()
   }, [])
-  
+
   const getAllBlogs = async () => {
     const response = await blogService.getAll()
     let initialBlogs = []

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import Blog from '../Blog'
-import BlogForm from '../BlogForm/BlogForm';
+import BlogForm from '../BlogForm/BlogForm'
 import styles from './Blogs.module.css'
 
 const Blogs = ({ blogs, user, handleLogout, onCreate, onLike, onDelete }) => {
@@ -8,7 +8,7 @@ const Blogs = ({ blogs, user, handleLogout, onCreate, onLike, onDelete }) => {
     <div>
       <h3>{user.username} is logged in</h3>
       <button onClick={handleLogout}>Log Out</button>
-      
+
       <h1>Blogs</h1>
       <BlogForm user={user} onCreate={onCreate} />
       <div className={styles.blogsWrapper}>
@@ -21,8 +21,8 @@ const Blogs = ({ blogs, user, handleLogout, onCreate, onLike, onDelete }) => {
         })}
       </div>
 
-    </div>   
+    </div>
   )
 }
 
-export default Blogs;
+export default Blogs
