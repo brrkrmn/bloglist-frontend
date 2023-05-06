@@ -5,8 +5,9 @@ import styles from "./Blogs.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUser } from "../../reducers/userReducer";
 
-const Blogs = ({ blogs, onCreate, onLike, onDelete }) => {
+const Blogs = () => {
   const user = useSelector(state => state.user)
+  const blogs = useSelector(state => state.blogs)
   const dispatch = useDispatch()
 
   const handleLogout = () => {
@@ -18,15 +19,13 @@ const Blogs = ({ blogs, onCreate, onLike, onDelete }) => {
       <h3>{user.username} is logged in</h3>
       <button onClick={handleLogout}>Log Out</button>
       <h1>Blogs</h1>
-      <BlogForm onCreate={onCreate} />
+      <BlogForm />
       <div className={styles.blogsWrapper}>
         {blogs.map((blog) => {
           return (
             <div key={blog.id} className={styles.blog}>
               <Blog
                 blog={blog}
-                onLike={onLike}
-                onDelete={onDelete}
               />
             </div>
           );

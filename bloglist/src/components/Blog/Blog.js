@@ -1,25 +1,27 @@
 import React from "react";
 import Togglable from "../Togglable/Togglable";
-import blogService from "../../services/blogs";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteBlog } from "../../reducers/blogsReducer";
+import { showNotification } from "../../reducers/notificationReducer";
 
-const Blog = ({ blog, onLike, onDelete }) => {
+const Blog = ({ blog }) => {
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user  )
-  const handleLike = async () => {
-    const newBlog = {
-      title: blog.title,
-      author: blog.author,
-      likes: blog.likes + 1,
-      url: blog.url,
-      user: blog.user,
-    };
-    const response = await blogService.update(blog.id, newBlog);
-    onLike(response);
-  };
+  // const handleLike = async () => {
+  //   const newBlog = {
+  //     title: blog.title,
+  //     author: blog.author,
+  //     likes: blog.likes + 1,
+  //     url: blog.url,
+  //     user: blog.user,
+  //   };
+  //   const response = await blogService.update(blog.id, newBlog);
+  //   onLike(response);
+  // };
 
   const handleRemove = async () => {
-    await blogService.remove(blog.id);
-    onDelete(blog.id);
+    dispatch(deleteBlog(blog.id))
+    dispatch(showNotification(['Blog deleted']))
   };
 
   return (
@@ -29,7 +31,9 @@ const Blog = ({ blog, onLike, onDelete }) => {
         <p>Author: {blog.author}</p>
         <p>
           likes: {blog.likes}
-          <button id="like" onClick={handleLike}>
+          <button id="like"
+          // onClick={handleLike}
+          >
             Like
           </button>
         </p>

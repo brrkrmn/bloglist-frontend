@@ -1,9 +1,13 @@
 import React from "react";
-import blogService from "../../services/blogs";
 import styles from "./BlogForm.module.css";
 import Togglable from "../Togglable/Togglable";
 
-const BlogForm = ({ onCreate }) => {
+import { useDispatch } from "react-redux";
+import { createBlog } from "../../reducers/blogsReducer";
+import { showNotification } from "../../reducers/notificationReducer";
+
+const BlogForm = () => {
+  const dispatch = useDispatch()
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [url, setUrl] = React.useState("");
@@ -25,9 +29,9 @@ const BlogForm = ({ onCreate }) => {
       author: author,
       url: url,
     };
+    dispatch(createBlog(newBlog));
+    dispatch(showNotification([`New blog ${newBlog.title} by ${newBlog.author} is added`]))
 
-    const response = await blogService.create(newBlog);
-    onCreate(response);
     setTitle("");
     setAuthor("");
     setUrl("");
