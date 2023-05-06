@@ -10,6 +10,9 @@ const blogsSlice = createSlice({
         setBlogs: (state, action) => {
             return action.payload
         },
+        sortBlogs: (state) => {
+            return state.sort((a, b) => b.likes - a.likes)
+        },
         appendBlog: (state, action) => {
             state.push(action.payload)
         },
@@ -51,6 +54,14 @@ export const createBlog = (content) => {
     }
 }
 
+export const likeBlog = (id) => {
+    return async dispatch => {
+        const updatedBlog = await blogService.likeBlog(id)
+        dispatch(updateBlog(updatedBlog))
+        dispatch(sortBlogs())
+    }
+}
+
 export const deleteBlog = (id) => {
     return async dispatch => {
         await blogService.remove(id);
@@ -58,5 +69,5 @@ export const deleteBlog = (id) => {
     }
 }
 
-export const { setBlogs, appendBlog, updateBlog, removeBlog } = blogsSlice.actions
+export const { setBlogs, sortBlogs, appendBlog, updateBlog, removeBlog } = blogsSlice.actions
 export default blogsSlice.reducer

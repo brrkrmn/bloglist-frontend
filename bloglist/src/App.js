@@ -19,22 +19,6 @@ const App = () => {
     dispatch(initializeBlogs())
   }, []);
 
-  // const onLike = (newBlog) => {
-  //   const updatedBlogs = blogs.map((blog) => {
-  //     if (blog.id === newBlog.id) {
-  //       return {
-  //         ...blog,
-  //         likes: newBlog.likes,
-  //       };
-  //     } else {
-  //       return blog;
-  //     }
-  //   });
-  //   updatedBlogs.sort((a, b) => b.likes - a.likes);
-  //   setBlogs(updatedBlogs);
-  //   dispatch(showNotification([`${newBlog.title} is liked`]))
-  // };
-
   return (
     <div>
       <Notification />

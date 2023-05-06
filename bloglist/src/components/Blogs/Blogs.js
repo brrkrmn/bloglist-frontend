@@ -24,9 +24,7 @@ const Blogs = () => {
         {blogs.map((blog) => {
           return (
             <div key={blog.id} className={styles.blog}>
-              <Blog
-                blog={blog}
-              />
+              <Blog blog={blog} />
             </div>
           );
         })}
