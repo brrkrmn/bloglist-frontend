@@ -1,25 +1,21 @@
-import React from 'react'
-import styles from './Notification.module.css'
+import React from "react";
+import styles from "./Notification.module.css";
+import { useSelector } from "react-redux";
 
-const Notification = ({ notification }) => {
-  if (notification === null) {
-    return null
+const Notification = () => {
+  const notification = useSelector((state) => state.notification)
+  const message = notification.message;
+  const type = notification.type;
+
+  if (message === '') {
+    return null;
   }
-  const message = notification.message
-  const type = notification.type
-  if (type === 'success') {
-    return (
-      <p className={styles.success}>
-        {message}
-      </p>
-    )
+
+  if (type === "success") {
+    return <p className={styles.success}>{message}</p>;
   } else {
-    return (
-      <p className={styles.fail}>
-        {message}
-      </p>
-    )
+    return <p className={styles.fail}>{message}</p>;
   }
-}
+};
 
-export default Notification
+export default Notification;

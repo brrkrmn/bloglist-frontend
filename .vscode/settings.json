@@ -1,0 +1,6 @@
+{
+  "editor.colorDecoratorsLimit": 500,
+  "editor.semanticTokenColorCustomizations": {},
+  "workbench.colorTheme": "Atom One Dark",
+  "terminal.integrated.tabs.defaultColor": null
+}

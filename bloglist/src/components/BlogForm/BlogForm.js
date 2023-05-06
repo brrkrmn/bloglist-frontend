@@ -1,78 +1,80 @@
-import React from 'react'
-import blogService from '../../services/blogs'
-import styles from './BlogForm.module.css'
-import Togglable from '../Togglable/Togglable'
+import React from "react";
+import blogService from "../../services/blogs";
+import styles from "./BlogForm.module.css";
+import Togglable from "../Togglable/Togglable";
 
 const BlogForm = ({ onCreate }) => {
-  const [title, setTitle] = React.useState('')
-  const [author, setAuthor] = React.useState('')
-  const [url, setUrl] = React.useState('')
+  const [title, setTitle] = React.useState("");
+  const [author, setAuthor] = React.useState("");
+  const [url, setUrl] = React.useState("");
 
   const changeTitle = (event) => {
-    setTitle(event.target.value)
-  }
+    setTitle(event.target.value);
+  };
   const changeAuthor = (event) => {
-    setAuthor(event.target.value)
-  }
+    setAuthor(event.target.value);
+  };
   const changeUrl = (event) => {
-    setUrl(event.target.value)
-  }
+    setUrl(event.target.value);
+  };
 
   const handleAddBlog = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const newBlog = {
       title: title,
       author: author,
       url: url,
-    }
+    };
 
-    const response = await blogService.create(newBlog)
-    onCreate(response)
-    setTitle('')
-    setAuthor('')
-    setUrl('')
-  }
+    const response = await blogService.create(newBlog);
+    onCreate(response);
+    setTitle("");
+    setAuthor("");
+    setUrl("");
+  };
 
   return (
-    <Togglable buttonLabel='Add Blog' cancelButtonLabel='Cancel'>
+    <Togglable buttonLabel="Add Blog" cancelButtonLabel="Cancel">
       <form onSubmit={handleAddBlog} className={styles.formWrapper}>
         <div>
           Title:
           <input
-            id='title'
+            id="title"
             type="text"
             value={title}
             name="Title"
             onChange={changeTitle}
-            placeholder='title'
+            placeholder="title"
           />
         </div>
         <div>
           Author:
           <input
-            id='author'
+            id="author"
             type="text"
             value={author}
             name="Author"
             onChange={changeAuthor}
-            placeholder='author'
+            placeholder="author"
           />
         </div>
         <div>
           URL:
           <input
-            id='url'
+            id="url"
             type="text"
             value={url}
             name="Url"
             onChange={changeUrl}
-            placeholder='url'
+            placeholder="url"
           />
         </div>
-        <button id='blogButton' type='submit'>Add</button>
-    </form>
+        <button id="blogButton" type="submit">
+          Add
+        </button>
+      </form>
     </Togglable>
-  )
-}
+  );
+};
 
-export default BlogForm
+export default BlogForm;

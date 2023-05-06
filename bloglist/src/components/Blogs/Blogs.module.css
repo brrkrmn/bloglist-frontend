@@ -1,16 +1,16 @@
 .blogsWrapper {
-    margin: 20px 40px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
+  margin: 20px 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .blog {
-    padding: 0px 0px 20px 0px;
-    width: 200px;
-    height: fit-content;
-    background-color: rgb(208, 213, 213);
-    border-radius: 8px;
-    text-align: center;
+  padding: 0px 0px 20px 0px;
+  width: 200px;
+  height: fit-content;
+  background-color: rgb(208, 213, 213);
+  border-radius: 8px;
+  text-align: center;
 }

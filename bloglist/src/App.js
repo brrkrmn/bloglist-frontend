@@ -1,31 +1,30 @@
-import React from 'react'
-import blogService from './services/blogs'
-import LoginForm from './components/LoginForm/LoginForm'
-import Blogs from './components/Blogs'
-import Notification from './components/Notification/Notification'
+import React from "react";
+import blogService from "./services/blogs";
+import LoginForm from "./components/LoginForm/LoginForm";
+import Blogs from "./components/Blogs";
+import Notification from "./components/Notification/Notification";
+
+import { useDispatch, useSelector } from "react-redux";
+import { showNotification } from "./reducers/notificationReducer";
+import { initializeUser } from './reducers/userReducer';
 
 const App = () => {
-  const [blogs, setBlogs] = React.useState([])
-  const [user, setUser] = React.useState(null)
-  const [notification, setNotification] = React.useState(null)
+  const [blogs, setBlogs] = React.useState([]);
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
-    const loggedUser = window.localStorage.getItem('loggedUser')
-    if (loggedUser) {
-      const user = JSON.parse(loggedUser)
-      setUser(user)
-      blogService.setToken(user.token)
-    }
-  }, [])
+    dispatch(initializeUser())
+  }, []);
 
+  const user = useSelector(state => state.user)
   React.useEffect(() => {
-    getAllBlogs()
-  }, [])
+    getAllBlogs();
+  }, []);
 
   const getAllBlogs = async () => {
-    const response = await blogService.getAll()
-    let initialBlogs = []
-    response.map(blog => {
+    const response = await blogService.getAll();
+    let initialBlogs = [];
+    response.map((blog) => {
       const newBlog = {
         title: blog.title,
         author: blog.author,
@@ -33,74 +32,60 @@ const App = () => {
         url: blog.url,
         id: blog.id,
         user: blog.user,
-      }
-      initialBlogs.push(newBlog)
-      initialBlogs.sort((a, b) => b.likes - a.likes)
-      return(initialBlogs)
-      })
-    setBlogs(initialBlogs)
-  }
-
-  const handleLogout = () => {
-    setUser(null)
-    window.localStorage.removeItem('loggedUser')
-  }
+      };
+      initialBlogs.push(newBlog);
+      initialBlogs.sort((a, b) => b.likes - a.likes);
+      return initialBlogs;
+    });
+    setBlogs(initialBlogs);
+  };
 
   const onCreate = (newBlog) => {
-    const updatedBlogs = [...blogs, newBlog]
-    updatedBlogs.sort((a, b) => b.likes - a.likes)
-    setBlogs(updatedBlogs)
-    getAllBlogs()
-    setMessage({
-      type: 'success',
-      message: `New blog ${newBlog.title} by ${newBlog.author} is added`
-    })
-  }
+    const updatedBlogs = [...blogs, newBlog];
+    updatedBlogs.sort((a, b) => b.likes - a.likes);
+    setBlogs(updatedBlogs);
+    getAllBlogs();
+    dispatch(showNotification([`New blog ${newBlog.title} by ${newBlog.author} is added`]))
+  };
 
   const onLike = (newBlog) => {
-    const updatedBlogs = blogs.map(blog => {
+    const updatedBlogs = blogs.map((blog) => {
       if (blog.id === newBlog.id) {
         return {
           ...blog,
-          likes: newBlog.likes
-        }
+          likes: newBlog.likes,
+        };
       } else {
-        return blog
+        return blog;
       }
-    })
-    updatedBlogs.sort((a, b) => b.likes - a.likes)
-    setBlogs(updatedBlogs)
-    setMessage({
-      type: 'success',
-      message: `${newBlog.title} is liked`
-    })
-  }
+    });
+    updatedBlogs.sort((a, b) => b.likes - a.likes);
+    setBlogs(updatedBlogs);
+    dispatch(showNotification([`${newBlog.title} is liked`]))
+  };
 
   const onDelete = (id) => {
-    const updatedBlogs = blogs.filter(blog => blog.id !== id)
-    setBlogs(updatedBlogs)
-    setMessage({
-      type: 'success',
-      message: 'Blog deleted'
-    })
-  }
-
-  const setMessage = (newMessage) => {
-    setNotification(newMessage)
-    setTimeout(() => {
-      setNotification(null)
-    }, 3000)
-  }
+    const updatedBlogs = blogs.filter((blog) => blog.id !== id);
+    setBlogs(updatedBlogs);
+    dispatch(showNotification(['Blog deleted']))
+  };
 
   return (
     <div>
-      <Notification notification={notification} />
-      {user === null
-        ? <LoginForm setUser={setUser} setMessage={setMessage} />
-        : <Blogs blogs={blogs} user={user} handleLogout={handleLogout} setBlogs={setBlogs} setMessage={setMessage} onCreate={onCreate} onLike={onLike} onDelete={onDelete} />
-      }
+      <Notification />
+      {user === null ? (
+        <LoginForm />
+      ) : (
+        <Blogs
+          blogs={blogs}
+          setBlogs={setBlogs}
+          onCreate={onCreate}
+          onLike={onLike}
+          onDelete={onDelete}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
