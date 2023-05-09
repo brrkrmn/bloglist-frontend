@@ -51,6 +51,7 @@ export const createBlog = (content) => {
     return async dispatch => {
         const newBlog = await blogService.create(content)
         dispatch(appendBlog(newBlog))
+        dispatch(initializeBlogs())
     }
 }
 
@@ -58,7 +59,7 @@ export const likeBlog = (id) => {
     return async dispatch => {
         const updatedBlog = await blogService.likeBlog(id)
         dispatch(updateBlog(updatedBlog))
-        dispatch(sortBlogs())
+        dispatch(initializeBlogs())
     }
 }
 

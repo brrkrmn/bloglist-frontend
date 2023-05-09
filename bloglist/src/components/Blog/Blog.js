@@ -1,12 +1,11 @@
 import React from "react";
-import Togglable from "../Togglable/Togglable";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlog, likeBlog } from "../../reducers/blogsReducer";
 import { showNotification } from "../../reducers/notificationReducer";
 
 const Blog = ({ blog }) => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user  )
+  const user = useSelector(state => state.user)
 
   const handleLike = async () => {
     dispatch(likeBlog(blog.id));
@@ -21,7 +20,6 @@ const Blog = ({ blog }) => {
   return (
     <div className="blog">
       <h3>{blog.title}</h3>
-      <Togglable buttonLabel="View" cancelButtonLabel="Hide">
         <p>Author: {blog.author}</p>
         <p>
           likes: {blog.likes}
@@ -34,7 +32,6 @@ const Blog = ({ blog }) => {
         {blog.user.username === user.username && (
           <button onClick={handleRemove}>Delete Blog</button>
         )}
-      </Togglable>
     </div>
   );
 };
