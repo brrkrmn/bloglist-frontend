@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteBlog, likeBlog } from "../../reducers/blogsReducer";
 import { showNotification } from "../../reducers/notificationReducer";
 import Comments from '../Comments'
+import { useNavigate } from "react-router-dom";
 
 const Blog = ({ blog }) => {
+  const navigate = useNavigate()
   if (!blog) {
     return null
   }
@@ -19,6 +21,7 @@ const Blog = ({ blog }) => {
   const handleRemove = async () => {
     dispatch(deleteBlog(blog.id))
     dispatch(showNotification(['Blog deleted']))
+    navigate('/blogs')
   };
 
   return (
