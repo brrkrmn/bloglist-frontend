@@ -1,8 +1,8 @@
 import React from "react";
-import Blog from "../Blog";
 import BlogForm from "../BlogForm/BlogForm";
 import styles from "./Blogs.module.css";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Blogs = () => {
   const blogs = useSelector(state => state.blogs)
@@ -14,9 +14,9 @@ const Blogs = () => {
       <div className={styles.blogsWrapper}>
         {blogs.map((blog) => {
           return (
-            <div key={blog.id} className={styles.blog}>
-              <Blog blog={blog} />
-            </div>
+            <Link to={`/blogs/${blog.id}`} key={blog.id} className={styles.blog}>
+              {blog.title} by {blog.author}
+            </Link>
           );
         })}
       </div>

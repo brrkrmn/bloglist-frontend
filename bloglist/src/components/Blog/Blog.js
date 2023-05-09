@@ -2,8 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteBlog, likeBlog } from "../../reducers/blogsReducer";
 import { showNotification } from "../../reducers/notificationReducer";
+import Comments from '../Comments'
 
 const Blog = ({ blog }) => {
+  if (!blog) {
+    return null
+  }
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
@@ -28,10 +32,11 @@ const Blog = ({ blog }) => {
           </button>
         </p>
         <p>url: {blog.url}</p>
-        <p>{blog.user.username}</p>
+        <p>Added by {blog.user.username}</p>
         {blog.user.username === user.username && (
           <button onClick={handleRemove}>Delete Blog</button>
         )}
+        <Comments comments={blog.comments} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ import Menu from "./components/Menu/Menu";
 import UserInfo from "./components/UserInfo/UserInfo";
 import Users from "./components/Users/Users";
 import User from "./components/User/User";
-
+import Blog from "./components/Blog/Blog";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeUser } from './reducers/userReducer';
 import { initializeBlogs } from "./reducers/blogsReducer";
@@ -28,9 +28,15 @@ const App = () => {
   }, []);
   const users = useSelector(state => state.users)
 
-  const match = useMatch('/users/:id')
-  const user = match
-    ? users.find(user => user.id === match.params.id)
+  const userMatch = useMatch('/users/:id')
+  const user = userMatch
+    ? users.find(user => user.id === userMatch.params.id)
+    : null
+
+  const blogs = useSelector(state => state.blogs)
+  const blogMatch = useMatch('/blogs/:id')
+  const blog = blogMatch
+    ? blogs.find(blog => blog.id === blogMatch.params.id)
     : null
 
   return (
@@ -48,6 +54,7 @@ const App = () => {
 
       <Routes>
         <Route path='/blogs' element={<Blogs />} />
+        <Route path='/blogs/:id' element={<Blog blog={blog} />} />
         <Route path ='/users' element={<Users />} />
         <Route path='/users/:id' element={<User user={user} />}/>
       </Routes>

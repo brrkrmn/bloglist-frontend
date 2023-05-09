@@ -1,15 +1,14 @@
 .blogsWrapper {
-  margin: 20px 40px;
+  margin: 20px 0px;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .blog {
-  padding: 0px 0px 20px 0px;
   width: 200px;
-  height: fit-content;
+  height: 30px;
+  line-height: 30px;
   background-color: rgb(208, 213, 213);
   border-radius: 8px;
   text-align: center;

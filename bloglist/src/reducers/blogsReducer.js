@@ -39,6 +39,7 @@ export const initializeBlogs = () => {
                 url: blog.url,
                 id: blog.id,
                 user: blog.user,
+                comments: blog.comments,
             };
             initialBlogs.push(blogObject)
         })
@@ -58,6 +59,15 @@ export const createBlog = (content) => {
 export const likeBlog = (id) => {
     return async dispatch => {
         const updatedBlog = await blogService.likeBlog(id)
+        dispatch(updateBlog(updatedBlog))
+        dispatch(initializeBlogs())
+    }
+}
+
+export const commentBlog = (id, content) => {
+    return async dispatch => {
+        const comment = { comment: content }
+        const updatedBlog = await blogService.commentBlog(id, comment)
         dispatch(updateBlog(updatedBlog))
         dispatch(initializeBlogs())
     }
